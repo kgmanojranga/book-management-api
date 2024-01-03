@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createBooks, getBookById, getBooks, updateBookById} from "../models/bookModel";
+import {createBooks, deleteBookById, getBookById, getBooks, updateBookById} from "../models/bookModel";
 
 export const createBook = async (req: Request, res: Response) => {
     try {
@@ -61,6 +61,21 @@ export const updateBook = async (req: Request, res: Response) => {
         return res.status(200).json({
             status: 'success',
             data: updatedBook
+        })
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const deleteBook = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const deletedBook = await deleteBookById(id);
+
+        return res.status(200).json({
+            status: 'success',
+            data: deletedBook
         })
     } catch(error) {
         console.log(error);

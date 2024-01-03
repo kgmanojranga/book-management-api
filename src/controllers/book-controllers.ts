@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createBooks, getBookById, getBooks} from "../models/bookModel";
+import {createBooks, getBookById, getBooks, updateBookById} from "../models/bookModel";
 
 export const createBook = async (req: Request, res: Response) => {
     try {
@@ -48,5 +48,21 @@ export const getBook = async (req: Request, res: Response) => {
     } catch(error) {
         console.log(error);
         res.sendStatus(400);
+    }
+}
+
+export const updateBook = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const values = req.body;
+
+        const updatedBook = await updateBookById(id, values);
+
+        return res.status(200).json({
+            status: 'success',
+            data: updatedBook
+        })
+    } catch(error) {
+        console.log(error);
     }
 }

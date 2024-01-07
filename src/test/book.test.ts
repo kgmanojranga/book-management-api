@@ -95,5 +95,42 @@ describe("books test suite", () => {
         })
     })
 
+    describe('patch user route', () => {
+        describe('sending a patch request with an correct id and a unique name', () => {
+            it('should return 200', async() => {
+                try {
+                    const response = await axios.patch('http://localhost:9000/api/v1/books/659b0759d1a854a6dcb813e2', {
+                        name: 'Me Before You 2'
+                    });
+                    expect(response.status).toBe(200);
+                } catch(error: any) {
+                    throw new Error('Error TEST')
+                }
+            })
+        })
 
+        describe('sending a patch request with an incorrect id', () => {
+            it('should return 404', async() => {
+                try {
+                    await axios.patch('http://localhost:9000/api/v1/books/659b0759d1a854a6dcb813e3', {
+                        name: 'Me Before You 2'
+                    });
+                } catch(error: any) {
+                    expect(error.response.status).toBe(404);
+                }
+            })
+        })
+
+        describe('sending a patch request with an existing name', () => {
+            it.only('should return 400', async () => {
+                try{
+                    await axios.patch("http://localhost:9000/api/v1/books/659b0759d1a854a6dcb813e2", {
+                        name: 'Me Before You 2'
+                    })
+                } catch(error: any) {
+                    expect(error.response.status).toBe(400);
+                }
+            })
+        })
+    })
 })

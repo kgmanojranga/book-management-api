@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const bookSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     author: {
         type: String,
@@ -25,10 +26,12 @@ export const createBooks = (values: Record<string, any>) => new BookModel(values
 export const getBooks = () => BookModel.find();
 
 // Get a book using book id
-export const getBookById = (id: string) => BookModel.findById(id);
+export const getBookById = (id: string) => BookModel.find({_id: id});
+
+// Get a book using book name
+export const getBookByName = (name: string) => BookModel.find({name: name});
 
 // Update a book using book id
-
 export const updateBookById = (id: string, values: Record<string, any>) => BookModel.findByIdAndUpdate(id, values, {
     new: true,
     runValidators: true

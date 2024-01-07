@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createBooks, deleteBookById, getBookById, getBooks, updateBookById} from "../models/bookModel";
+import {createBooks, deleteBookById, getBooks, updateBookById} from "../models/bookModel";
 import {idValidChecker, nameChecker} from "../helpers/helpers";
 
 export const createBook = async (req: Request, res: Response) => {
